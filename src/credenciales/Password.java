@@ -28,4 +28,8 @@ public class Password {
     private boolean comprobarPass(String pass){
         return pass.length() >= 5;
     }
+    
+    public String getPassword() {
+        return this.password;
+    }
 }

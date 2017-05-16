@@ -9,6 +9,10 @@ package excepciones;
  *
  * @author dam110
  */
-public class EmailIncorrectoException {
-    
+public class EmailIncorrectoException extends Exception{
+
+    @Override
+    public String getMessage() {
+        return "Email debe acabar en @X.N.\nX= 2 o mas caracteres.\nN= 2o 3 caracteres.";
+    }
 }

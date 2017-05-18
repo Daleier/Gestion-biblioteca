@@ -17,15 +17,15 @@ import java.util.Objects;
  */
 public class Usuario implements Comparable {
     private String name;
-    private DNI dni;
-    private Email email;
-    private Password pass;
+    protected DNI dni;
+    protected Email email;
+    protected Password pass;
     private byte maxPrestamos = 3;
     private byte prestamosActuales = 0;
     
     ListaUsuarios lista = new ListaUsuarios();
-    
-    public void Usuario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{
+ 
+    public Usuario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{
         if(name.isEmpty()||name.trim().length()>15){
             throw new NombreIncorrectoException();
         }else{

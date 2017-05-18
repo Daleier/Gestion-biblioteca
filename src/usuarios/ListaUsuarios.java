@@ -128,5 +128,17 @@ public class ListaUsuarios implements Serializable{
             System.out.println("Uno de los usuarios del fichero ya existe.");
         }
     }
+    
+    public boolean iniciarSesion(String name,String pass){
+        ListIterator<Usuario> it = lista.listIterator();
+        while (it.hasNext()){
+            it.next();
+            Usuario usu = (Usuario) it;
+            if(usu.getName().equalsIgnoreCase(name) && usu.pass.getPassword().equalsIgnoreCase(pass)){
+                return true;
+            }
+        }
+        return false;
+    }
    
 }

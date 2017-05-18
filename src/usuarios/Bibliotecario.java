@@ -18,7 +18,7 @@ import excepciones.UsuarioYaExisteException;
 public class Bibliotecario extends Usuario{
     byte maxPrestamos = 10;
     
-    public void Bibliotecario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{
-        super.Usuario(name, dni, email, pass);
+    public Bibliotecario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{
+        super(name, dni, email, pass);
     }
 }

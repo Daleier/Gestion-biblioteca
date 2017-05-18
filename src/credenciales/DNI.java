@@ -10,16 +10,16 @@ import excepciones.DNIincorrectoException;
  *clase para dni usuarios
  * @author dam110
  */
-public class DNI{
-    private String DNI;
-
+public final class DNI{
+    private final String DNI;
+    
 
     /**
      * crea un dni de formato 12345678A
      * @param dni
      * @throws DNIincorrectoException el dni no esta dentro del formato especificado
      */
-    public void DNI(String dni) throws DNIincorrectoException{
+    public DNI(String dni) throws DNIincorrectoException{
         if(this.comprobar(dni.trim())){
             this.DNI = dni.trim();
         }else{

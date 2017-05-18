@@ -11,10 +11,10 @@ import excepciones.EmailIncorrectoException;
  * la longitud maxima no puede ser mayor de 20
  * @author dam110
  */
-public class Email {
-    private String email;
+public final class Email {
+    private final String email;
     
-    public void email(String email) throws EmailIncorrectoException{
+    public Email(String email) throws EmailIncorrectoException{
         if(comprobar(email.trim())){
             this.email = email.trim();
         }else{
@@ -51,4 +51,9 @@ public class Email {
         }
         return tienearoba;
     }
+
+    public String getEmail() {
+        return email;
+    }
+    
 }

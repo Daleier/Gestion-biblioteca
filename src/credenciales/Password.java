@@ -17,7 +17,7 @@ public class Password {
      * @param pass 
      * @throws excepciones.PassIncorrectaException la contraseña tiene menos de 5 caracteres
      */
-    public void password(String pass) throws PassIncorrectaException{
+    public Password(String pass) throws PassIncorrectaException{
         if(comprobarPass(pass.trim())){
             this.password = pass.trim();
         }else{

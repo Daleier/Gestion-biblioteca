@@ -5,10 +5,11 @@
  */
 package usuarios;
 
-import credenciales.DNI;
-import credenciales.Email;
-import credenciales.Password;
+import excepciones.DNIincorrectoException;
+import excepciones.EmailIncorrectoException;
 import excepciones.NombreIncorrectoException;
+import excepciones.PassIncorrectaException;
+import excepciones.UsuarioYaExisteException;
 
 /**
  *
@@ -17,7 +18,7 @@ import excepciones.NombreIncorrectoException;
 public class Bibliotecario extends Usuario{
     byte maxPrestamos = 10;
     
-    public void Bibliotecario(String name, DNI dni, Email email, Password pass) throws NombreIncorrectoException{
+    public void Bibliotecario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{
         super.Usuario(name, dni, email, pass);
     }
 }

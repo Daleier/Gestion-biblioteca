@@ -5,27 +5,92 @@
  */
 package usuarios;
 import credenciales.*;
+import excepciones.DNIincorrectoException;
+import excepciones.EmailIncorrectoException;
 import excepciones.NombreIncorrectoException;
+import excepciones.PassIncorrectaException;
+import excepciones.UsuarioYaExisteException;
+import java.util.Objects;
 /**
  *
  * @author dam110
  */
-public class Usuario {
-    String name;
-    DNI dni;
-    Email email;
-    Password pass;
-    byte maxPrestamos = 3;
-    byte prestamosActuales = 0;
+public class Usuario implements Comparable {
+    private String name;
+    private DNI dni;
+    private Email email;
+    private Password pass;
+    private byte maxPrestamos = 3;
+    private byte prestamosActuales = 0;
     
-    public void Usuario(String name, DNI dni, Email email, Password pass) throws NombreIncorrectoException{
+    ListaUsuarios lista = new ListaUsuarios();
+    
+    public void Usuario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{
         if(name.isEmpty()||name.trim().length()>15){
             throw new NombreIncorrectoException();
         }else{
             this.name = name;
         }
-        this.dni = dni;
-        this.email = email;
-        this.pass = pass;
+        this.dni = new DNI(dni);
+        this.email =new Email(email);
+        this.pass = new Password (pass);
+        lista.addUser(this); //intenta añadir al usario recien creado a la lista
     }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public byte getMaxPrestamos() {
+        return maxPrestamos;
+    }
+
+    public byte getPrestamosActuales() {
+        return prestamosActuales;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if(this.email.getEmail().equals(other.email.getEmail())){
+            return false;
+        }
+        if(this.getName().equals(other.getName())){
+            return false;
+        }
+        return this.dni.getDni().equals(other.dni.getDni());
+    }
+    
+    @Override
+    public String toString(){
+        return "Nombre: "+this.getName()+"\nDNI: "+this.dni.getDni()+"\nEmail: "+this.email.getEmail();
+    }
+    
+    @Override
+    public int compareTo(Object o) {
+            final int ANTES = -1;
+            final int IGUAL = 0;
+            final int DESPUES = 1;
+            Usuario usuario = (Usuario) o;
+            if(this.dni.getDni().compareToIgnoreCase(usuario.dni.getDni()) == 0){
+                    return IGUAL;
+            }else if(this.dni.getDni().compareToIgnoreCase(usuario.dni.getDni()) == 1){
+                    return DESPUES;
+            }else{
+                    return ANTES;
+            }
+    }
+    
 }

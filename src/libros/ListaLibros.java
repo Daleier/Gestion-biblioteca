@@ -4,18 +4,19 @@
  * and open the template in the editor.
  */
 package libros;
+import credenciales.ISBN;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ListIterator;
 /**
  *
  * @author dam110
  */
 public class ListaLibros implements Serializable{
-    private ArrayList<Libro> lista;
-    
+
+    HashMap<ISBN, String> lista;
     public ListaLibros(){
-        lista = new ArrayList<Libro>();
+        lista = new <Libro>();
     }
     
     protected void addLibro(Libro libro){

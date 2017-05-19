@@ -13,7 +13,7 @@ public class UsuarioYaExisteException extends Exception{
 
     @Override
     public String getMessage() {
-        return "Usuario introducido ya existe.";
+        return "Usuario introducido ya existe.\nDNI, Nombre o email ya pertenecen a otro usuario.";
     }
     
     

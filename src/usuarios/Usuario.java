@@ -10,7 +10,6 @@ import excepciones.EmailIncorrectoException;
 import excepciones.NombreIncorrectoException;
 import excepciones.PassIncorrectaException;
 import excepciones.UsuarioYaExisteException;
-import java.util.Objects;
 /**
  *
  * @author dam110
@@ -49,12 +48,6 @@ public class Usuario implements Comparable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -78,17 +71,17 @@ public class Usuario implements Comparable {
      */
     @Override
     public int compareTo(Object o) {
-            final int ANTES = -1;
-            final int IGUAL = 0;
-            final int DESPUES = 1;
-            Usuario usuario = (Usuario) o;
-            if(this.dni.getDni().compareToIgnoreCase(usuario.dni.getDni()) == 0){
-                    return IGUAL;
-            }else if(this.dni.getDni().compareToIgnoreCase(usuario.dni.getDni()) == 1){
-                    return DESPUES;
-            }else{
-                    return ANTES;
-            }
+        final int ANTES = -1;
+        final int IGUAL = 0;
+        final int DESPUES = 1;
+        Usuario usuario = (Usuario) o;
+        if(this.dni.getDni().compareToIgnoreCase(usuario.dni.getDni()) == 0){
+                return IGUAL;
+        }else if(this.dni.getDni().compareToIgnoreCase(usuario.dni.getDni()) == 1){
+                return DESPUES;
+        }else{
+                return ANTES;
+        }
     }
     
 }

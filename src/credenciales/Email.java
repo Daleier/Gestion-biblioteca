@@ -55,5 +55,12 @@ public final class Email {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public boolean equals(Object o) {         
+        Email mail = (Email) o;
+        return this.email.equals(mail.getEmail());
+    }
+    
     
 }

@@ -22,8 +22,7 @@ public class Usuario implements Comparable {
     protected Password pass;
     private byte maxPrestamos = 3;
     private byte prestamosActuales = 0;
-    
-    ListaUsuarios lista = new ListaUsuarios();
+    static ListaUsuarios lista = new ListaUsuarios();
  
     public Usuario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{
         if(name.isEmpty()||name.trim().length()>15){
@@ -64,12 +63,6 @@ public class Usuario implements Comparable {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if(this.email.getEmail().equals(other.email.getEmail())){
-            return false;
-        }
-        if(this.getName().equals(other.getName())){
-            return false;
-        }
         return this.dni.getDni().equals(other.dni.getDni());
     }
     
@@ -78,6 +71,11 @@ public class Usuario implements Comparable {
         return "Nombre: "+this.getName()+"\nDNI: "+this.dni.getDni()+"\nEmail: "+this.email.getEmail();
     }
     
+    /**
+     * compara los dni de los objetos usuario
+     * @param o
+     * @return 
+     */
     @Override
     public int compareTo(Object o) {
             final int ANTES = -1;

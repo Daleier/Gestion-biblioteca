@@ -12,7 +12,6 @@ import excepciones.PassIncorrectaException;
 import excepciones.UsuarioYaExisteException;
 
 /**
- *
  * @author dam110
  */
 public class Bibliotecario extends Usuario{

@@ -54,8 +54,15 @@ public class ListaUsuarios implements Serializable{
         ListIterator<Usuario> it = lista.listIterator();
         while(it.hasNext()){
             it.next();
-            if(it.equals(user)){
-                System.out.println("Usuario exite");
+            Usuario usu = (Usuario)it;
+            if(usu.equals(user)){//comprueba si el dni es igual
+                System.out.println("Usuario exite (dni)");
+                return true;
+            }else if(usu.email.equals(user.email)){//comprueba si el email es igual
+                System.out.println("Usuario existe (email)");
+                return true;
+            }else if(usu.getName().equals(user.getName())){//comprueba si el nombre de usuario es igual
+                System.out.println("Usuario existe (nombre)");
                 return true;
             }
         }
@@ -128,17 +135,22 @@ public class ListaUsuarios implements Serializable{
             System.out.println("Uno de los usuarios del fichero ya existe.");
         }
     }
-    
+    /**
+     * recoge nombre de usuario y contraseña y los compara con todos los de la lista
+     * @param name
+     * @param pass
+     * @return true si datos correctos, false si incorrectos
+     */
     public boolean iniciarSesion(String name,String pass){
         ListIterator<Usuario> it = lista.listIterator();
         while (it.hasNext()){
-            it.next();
+            it.next(); 
             Usuario usu = (Usuario) it;
             if(usu.getName().equalsIgnoreCase(name) && usu.pass.getPassword().equalsIgnoreCase(pass)){
-                return true;
+                return true; //comprobar
             }
         }
         return false;
     }
-   
+    
 }

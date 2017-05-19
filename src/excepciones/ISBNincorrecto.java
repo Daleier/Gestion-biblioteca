@@ -9,9 +9,12 @@ package excepciones;
  *
  * @author dam110
  */
-public class NombreIncorrectoException extends Exception {
+public class ISBNincorrecto extends Exception {
+
     @Override
     public String getMessage() {
-        return "Nombre debe tener entre 1 y 15 caracteres.";
+        return "El ISBN debe tener 10 o 13 digitos.";
     }
+    
+    
 }

@@ -22,9 +22,9 @@ import java.util.Collections;
  *  arraylist que contiene a todos los usuarios
  * @author dam110
  */
-public class ListaUsuarios implements Serializable{
+public final class ListaUsuarios implements Serializable{
     
-    private final ArrayList<Usuario> lista;
+    private static ArrayList<Usuario> lista;
     
     public ListaUsuarios(){
         lista = new ArrayList<Usuario>();
@@ -34,6 +34,7 @@ public class ListaUsuarios implements Serializable{
     /**
      * añade a un usuario a la lista tras comprobar si no esta repetido
      * @param user 
+     * @throws excepciones.UsuarioYaExisteException 
      */
     protected void addUser(Usuario user) throws UsuarioYaExisteException{
         if(!comprobarUsuario(user)){
@@ -141,7 +142,7 @@ public class ListaUsuarios implements Serializable{
      * @param pass
      * @return true si datos correctos, false si incorrectos
      */
-    public boolean iniciarSesion(String name,String pass){
+    public static boolean iniciarSesion(String name,String pass){
         ListIterator<Usuario> it = lista.listIterator();
         while (it.hasNext()){
             it.next(); 

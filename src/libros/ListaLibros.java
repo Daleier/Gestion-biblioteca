@@ -7,19 +7,24 @@ package libros;
 import credenciales.ISBN;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.ListIterator;
+import excepciones.ISBNyaExisteException;
 /**
  *
  * @author dam110
  */
 public class ListaLibros implements Serializable{
 
-    HashMap<ISBN, String> lista;
+    HashMap<ISBN, Libro> lista = new HashMap<ISBN, Libro>();
     public ListaLibros(){
-        lista = new <Libro>();
+        
     }
     
-    protected void addLibro(Libro libro){
-        lista.add(libro);
+    protected void addLibro(Libro libro) throws ISBNyaExisteException{
+        if(!lista.containsKey(libro.isbn)){
+            lista.put(libro.isbn, libro);
+        }else{
+            throw new ISBNyaExisteException();
+        }
+        
     }
 }

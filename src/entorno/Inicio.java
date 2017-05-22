@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package entorno;
+import javax.swing.JOptionPane;
 import usuarios.ListaUsuarios;
 /**
  *
@@ -14,6 +15,7 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     public Inicio() {
+        registro = new Registro(this,true);
         initComponents();
     }
 
@@ -33,7 +35,7 @@ public class Inicio extends javax.swing.JFrame {
         jLblPass = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jBttnIniciar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBttnCrear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -63,10 +65,10 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Crear cuenta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBttnCrear.setText("Crear cuenta");
+        jBttnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBttnCrearActionPerformed(evt);
             }
         });
 
@@ -78,7 +80,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBttnIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBttnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -87,7 +89,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jBttnIniciar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jBttnCrear)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -157,16 +159,19 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieldActionPerformed
 
     private void jBttnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnIniciarActionPerformed
-        if(ListaUsuarios.iniciarSesion(this.jTxtNombre.getText(), this.jPasswordField.getSelectedText())){
-                //iniciar sesion
+        if(this.jTxtNombre.getText().isEmpty() || this.jPasswordField.getSelectedText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña vacios", "Faltan el usuario o la contraseña-", JOptionPane.ERROR_MESSAGE);
+        }else if(ListaUsuarios.iniciarSesion(this.jTxtNombre.getText(), this.jPasswordField.getSelectedText())){
+                    //iniciar sesion
         }else{
-           // ventana emergente 
+               // ventana emergente 
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Inicio de sesion fallido.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBttnIniciarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jBttnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnCrearActionPerformed
+        registro.setVisible(true);
+    }//GEN-LAST:event_jBttnCrearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,8 +209,8 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBttnCrear;
     private javax.swing.JButton jBttnIniciar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLblNombre;
     private javax.swing.JLabel jLblPass;
     private javax.swing.JPanel jPanel2;
@@ -213,4 +218,5 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables
+    Registro registro;
 }

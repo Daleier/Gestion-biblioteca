@@ -84,4 +84,8 @@ public class Usuario implements Comparable {
         }
     }
     
+    public boolean iniciarSesion(){
+        return true;
+    }
+    
 }

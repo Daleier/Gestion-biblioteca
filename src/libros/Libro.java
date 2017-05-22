@@ -6,6 +6,7 @@
 package libros;
 import credenciales.ISBN;
 import excepciones.ISBNincorrecto;
+import excepciones.ISBNyaExisteException;
 import java.util.Date;
 /**
  *
@@ -20,7 +21,7 @@ public class Libro implements Prestamos{
     public Date fechaLimite;
     static ListaLibros lista = new ListaLibros();
     
-    public Libro(String titulo, String autor, String editorial, String isbn) throws ISBNincorrecto{
+    public Libro(String titulo, String autor, String editorial, String isbn) throws ISBNincorrecto, ISBNyaExisteException{
         this.titulo = titulo.trim();
         this.autor = autor.trim();
         this.editorial = editorial.trim();

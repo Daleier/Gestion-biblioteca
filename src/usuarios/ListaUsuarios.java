@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collections;
+import java.util.Iterator;
 
 /**
  *  arraylist que contiene a todos los usuarios
@@ -28,7 +29,7 @@ public final class ListaUsuarios implements Serializable{
     
     public ListaUsuarios(){
         lista = new ArrayList<Usuario>();
-        this.leerDatosUsuarios();
+//        ListaUsuarios.leerDatosUsuarios();
     }
     
     /**
@@ -36,14 +37,23 @@ public final class ListaUsuarios implements Serializable{
      * @param user 
      * @throws excepciones.UsuarioYaExisteException 
      */
-    protected void addUser(Usuario user) throws UsuarioYaExisteException{
+    public static void addUser(Usuario user) throws UsuarioYaExisteException{
         if(!comprobarUsuario(user)){
             lista.add(user); //usuario no existe aun en la lista
             System.out.println("Usuario añadido a la lista");
         }else{ //usuario ya existe
             throw new UsuarioYaExisteException();//lanzar excepcion
         }
-        this.escribirDatosUsuarios();
+    }
+    
+    public static Usuario obtenerUser(String nombre){
+        for (Iterator<Usuario> it = lista.iterator(); it.hasNext();) {
+            Usuario next = it.next();
+            if(next.getName().equals(nombre)){
+                return next;
+            }
+        }
+        return null;
     }
     
     /**
@@ -51,7 +61,7 @@ public final class ListaUsuarios implements Serializable{
      * @param user
      * @return true si existe, false si no existe
      */
-    private boolean comprobarUsuario(Usuario user){
+    private static boolean comprobarUsuario(Usuario user){
         ListIterator<Usuario> it = lista.listIterator();
         while(it.hasNext()){
             it.next();
@@ -75,7 +85,7 @@ public final class ListaUsuarios implements Serializable{
      * elimina a un usuario de la lista
      * @param user 
      */
-    private void deleteUser(Usuario user){
+    private static void deleteUser(Usuario user){
         ListIterator<Usuario> it = lista.listIterator();
         while(it.hasNext()){
             it.next();
@@ -84,21 +94,20 @@ public final class ListaUsuarios implements Serializable{
             }else{
                 System.out.println("Usuario a elimnar no existe.");
             }
-            this.escribirDatosUsuarios();
         }
     }
     
     /**
      * ordena lista por dni
      */
-    private void ordenarLista(){
+    private static void ordenarLista(){
         Collections.sort(lista);
     }
 
     /**
      * escribe objetos de lista en usuarios.dat
      */
-    public void escribirDatosUsuarios(){
+    public static void escribirDatosUsuarios(){
         try{
             ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("usuarios.dat"));
             ListIterator<Usuario> it = lista.listIterator();
@@ -110,19 +119,19 @@ public final class ListaUsuarios implements Serializable{
         }catch(FileNotFoundException ex){
             System.out.println("Fichero no encontrado.");
         }catch (IOException ex) {
-            System.out.println("Error entrada/salida de datos");
+            System.out.println("Error entrada/salida de datos\nescribirDatosUsuarios()");
         }
     }
     
     /**
      * añade objetos de usuarios.dat a lista
      */
-    public void leerDatosUsuarios(){
+    public static void leerDatosUsuarios(){
         try{
             ObjectInputStream entrada = new ObjectInputStream(new FileInputStream("usuarios.dat"));
             Usuario usu = (Usuario) entrada.readObject();
             while (usu!=null){
-                this.addUser(usu);
+                ListaUsuarios.addUser(usu);
                 usu = (Usuario) entrada.readObject();
             }
             entrada.close();
@@ -131,7 +140,7 @@ public final class ListaUsuarios implements Serializable{
         }catch(ClassNotFoundException ex){
             System.out.println("No se encuentra el fichero");
         }catch(IOException ex){
-            System.out.println("Error en entrada/salida de datos");
+            System.out.println("Error en entrada/salida de datos\nleerDatosusuarios()");
         }catch(UsuarioYaExisteException ex){
             System.out.println("Uno de los usuarios del fichero ya existe.");
         }
@@ -145,8 +154,8 @@ public final class ListaUsuarios implements Serializable{
     public static boolean iniciarSesion(String name,String pass){
         ListIterator<Usuario> it = lista.listIterator();
         while (it.hasNext()){
-            it.next(); 
-            Usuario usu = (Usuario) it;
+            Usuario usu2 = it.next(); 
+            Usuario usu = usu2;
             if(usu.getName().equalsIgnoreCase(name) && usu.pass.getPassword().equalsIgnoreCase(pass)){
                 return true; //comprobar
             }

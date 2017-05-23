@@ -32,7 +32,6 @@ public class Usuario implements Comparable {
         this.dni = new DNI(dni);
         this.email =new Email(email);
         this.pass = new Password (pass);
-        lista.addUser(this); //intenta añadir al usario recien creado a la lista
     }
     
     public String getName(){

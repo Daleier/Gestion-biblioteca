@@ -10,7 +10,6 @@ package excepciones;
  * @author dam110
  */
 public class PassIncorrectaException extends Exception {
-    public void PassIncorrectaException(){}
     
     @Override
     public String getMessage(){

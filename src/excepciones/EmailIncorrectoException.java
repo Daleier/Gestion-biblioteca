@@ -13,6 +13,6 @@ public class EmailIncorrectoException extends Exception{
 
     @Override
     public String getMessage() {
-        return "Email debe acabar en @X.N.\nX= 2 o mas caracteres.\nN= 2o 3 caracteres.";
+        return "Email debe tener al menos un @ y  un . y no puede estar vacio o sobrepasar los 20 carácteres.";
     }
 }

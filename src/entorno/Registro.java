@@ -230,6 +230,10 @@ public class Registro extends javax.swing.JDialog {
     }//GEN-LAST:event_jBttnAceptarActionPerformed
 
     private void jBttnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnCancelarActionPerformed
+        this.jPassField.setText("");
+        this.jTxtDNI.setText("");
+        this.jTxtEmail.setText("");
+        this.jTxtNombre.setText("");
         this.dispose();
     }//GEN-LAST:event_jBttnCancelarActionPerformed
 

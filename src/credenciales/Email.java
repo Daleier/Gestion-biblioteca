@@ -26,14 +26,12 @@ public final class Email {
         if(email.length()>20 || email.isEmpty()){//comprueba si el mail tiene entre 1 y 20 caracteres
             return false;
         }
-        boolean tienearoba = comprobarArr(email);
-        if(!tienearoba){
-            return false;//devuelve false si no tiene @
-        }
-        if(email.charAt(email.length()-3) != '.' || email.charAt(email.length()-2) != '.' ){//comprueba que el email acabe en . y 2 o 3 caracteres
+        if(comprobarArr(email)==true && comprobarPunto(email) == true){
+            return true;
+        }else{
             return false;
         }
-        return true;
+
     }
     
     /**
@@ -43,13 +41,29 @@ public final class Email {
      */
     private boolean comprobarArr(String email) {
         boolean tienearoba = false;
-        for (int a = 1; a < email.length() - 4; a++) {
+        for (int a = 1; a < email.length(); a++) {
             if (email.charAt(a) == '@') {
                 tienearoba = true;
                 break;
             }
         }
         return tienearoba;
+    }
+    
+    /**
+     * comprueba si el email tiene punto
+     * @param email
+     * @return 
+     */
+    private boolean comprobarPunto(String email){
+        boolean punto = false;
+        for (int a = 1; a < email.length(); a++) {
+            if (email.charAt(a) == '.') {
+                punto = true;
+                break;
+            }
+        }
+        return punto;
     }
 
     public String getEmail() {

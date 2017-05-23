@@ -18,15 +18,11 @@ public class Password {
      * @throws excepciones.PassIncorrectaException la contraseña tiene menos de 5 caracteres
      */
     public Password(String pass) throws PassIncorrectaException{
-        if(comprobarPass(pass.trim())){
-            this.password = pass.trim();
-        }else{
+        if(pass.length()<5){
             throw new PassIncorrectaException();
+        }else{
+            this.password = pass;
         }
-    }
-    
-    private boolean comprobarPass(String pass){
-        return pass.length() >= 5;
     }
     
     public String getPassword() {

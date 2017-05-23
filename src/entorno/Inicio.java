@@ -6,6 +6,7 @@
 package entorno;
 import javax.swing.JOptionPane;
 import usuarios.ListaUsuarios;
+import usuarios.Usuario;
 /**
  *
  * @author dam110
@@ -159,12 +160,14 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieldActionPerformed
 
     private void jBttnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnIniciarActionPerformed
-        if(this.jTxtNombre.getText().isEmpty() || this.jPasswordField.getSelectedText().isEmpty()){
+        if(this.jTxtNombre.getText().isEmpty() || this.jPasswordField.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Usuario o contraseña vacios", "Faltan el usuario o la contraseña-", JOptionPane.ERROR_MESSAGE);
-        }else if(ListaUsuarios.iniciarSesion(this.jTxtNombre.getText(), this.jPasswordField.getSelectedText())){
-                    //iniciar sesion
+        }else if(ListaUsuarios.iniciarSesion(this.jTxtNombre.getText(), this.jPasswordField.getText())){
+            Usuario usuario = ListaUsuarios.obtenerUser(this.jTxtNombre.getText());
+            principal = new Principal(usuario);
+            principal.setVisible(true);
+            this.dispose();
         }else{
-               // ventana emergente 
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Inicio de sesion fallido.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBttnIniciarActionPerformed
@@ -219,4 +222,5 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables
     Registro registro;
+    Principal principal;
 }

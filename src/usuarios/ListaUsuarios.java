@@ -5,6 +5,7 @@
  */
 package usuarios;
 
+import entorno.Usuarios;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -23,21 +24,21 @@ import java.util.Iterator;
  *  arraylist que contiene a todos los usuarios
  * @author dam110
  */
-public final class ListaUsuarios implements Serializable{
+public class ListaUsuarios implements Serializable{
     
-    private static ArrayList<Usuario> lista;
+    private static ArrayList<Usuario> lista = new ArrayList<Usuario>();
     
-    public ListaUsuarios(){
-        lista = new ArrayList<Usuario>();
-//        ListaUsuarios.leerDatosUsuarios();
+    public ListaUsuarios(){}
+    
+    public ArrayList<Usuario> getLista(){
+        return lista;
     }
-    
     /**
      * añade a un usuario a la lista tras comprobar si no esta repetido
      * @param user 
      * @throws excepciones.UsuarioYaExisteException 
      */
-    public static void addUser(Usuario user) throws UsuarioYaExisteException{
+    public void addUser(Usuario user) throws UsuarioYaExisteException{
         if(!comprobarUsuario(user)){
             lista.add(user); //usuario no existe aun en la lista
             System.out.println("Usuario añadido a la lista");
@@ -46,7 +47,7 @@ public final class ListaUsuarios implements Serializable{
         }
     }
     
-    public static Usuario obtenerUser(String nombre){
+    public Usuario obtenerUser(String nombre){
         for (Iterator<Usuario> it = lista.iterator(); it.hasNext();) {
             Usuario next = it.next();
             if(next.getName().equals(nombre)){
@@ -61,11 +62,11 @@ public final class ListaUsuarios implements Serializable{
      * @param user
      * @return true si existe, false si no existe
      */
-    private static boolean comprobarUsuario(Usuario user){
+    private boolean comprobarUsuario(Usuario user){
         ListIterator<Usuario> it = lista.listIterator();
         while(it.hasNext()){
-            it.next();
-            Usuario usu = (Usuario)it;
+            Usuario next = it.next();
+            Usuario usu = next;
             if(usu.equals(user)){//comprueba si el dni es igual
                 System.out.println("Usuario exite (dni)");
                 return true;
@@ -85,7 +86,7 @@ public final class ListaUsuarios implements Serializable{
      * elimina a un usuario de la lista
      * @param user 
      */
-    private static void deleteUser(Usuario user){
+    private void deleteUser(Usuario user){
         ListIterator<Usuario> it = lista.listIterator();
         while(it.hasNext()){
             it.next();
@@ -100,14 +101,14 @@ public final class ListaUsuarios implements Serializable{
     /**
      * ordena lista por dni
      */
-    private static void ordenarLista(){
+    private void ordenarLista(){
         Collections.sort(lista);
     }
 
     /**
      * escribe objetos de lista en usuarios.dat
      */
-    public static void escribirDatosUsuarios(){
+    public void escribirDatosUsuarios(){
         try{
             ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("usuarios.dat"));
             ListIterator<Usuario> it = lista.listIterator();
@@ -126,12 +127,12 @@ public final class ListaUsuarios implements Serializable{
     /**
      * añade objetos de usuarios.dat a lista
      */
-    public static void leerDatosUsuarios(){
+    public void leerDatosUsuarios(){
         try{
             ObjectInputStream entrada = new ObjectInputStream(new FileInputStream("usuarios.dat"));
             Usuario usu = (Usuario) entrada.readObject();
             while (usu!=null){
-                ListaUsuarios.addUser(usu);
+                this.addUser(usu);
                 usu = (Usuario) entrada.readObject();
             }
             entrada.close();
@@ -151,7 +152,7 @@ public final class ListaUsuarios implements Serializable{
      * @param pass
      * @return true si datos correctos, false si incorrectos
      */
-    public static boolean iniciarSesion(String name,String pass){
+    public boolean iniciarSesion(String name,String pass){
         ListIterator<Usuario> it = lista.listIterator();
         while (it.hasNext()){
             Usuario usu2 = it.next(); 
@@ -163,4 +164,15 @@ public final class ListaUsuarios implements Serializable{
         return false;
     }
     
+    public void eliminarUsuario(Usuario usu){
+        lista.remove(usu);
+    }
+    
+    public int tam(){
+        return lista.size();
+    }
+    
+    public Usuario getUsuario(int u){
+        return (Usuario)lista.get(u);
+    }
 }

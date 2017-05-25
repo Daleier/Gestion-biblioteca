@@ -10,17 +10,19 @@ import excepciones.EmailIncorrectoException;
 import excepciones.NombreIncorrectoException;
 import excepciones.PassIncorrectaException;
 import excepciones.UsuarioYaExisteException;
+import libros.Libro;
 /**
  *
  * @author dam110
  */
 public class Usuario implements Comparable {
     private String name;
-    protected DNI dni;
-    protected Email email;
-    protected Password pass;
-    private byte maxPrestamos = 3;
-    private byte prestamosActuales = 0;
+    public DNI dni;
+    public Email email;
+    public Password pass;
+    private final byte maxPrestamos = 3;
+    private final byte prestamosActuales = 0;
+    
     static ListaUsuarios lista = new ListaUsuarios();
  
     public Usuario(String name, String dni, String email, String pass) throws NombreIncorrectoException, DNIincorrectoException, PassIncorrectaException, EmailIncorrectoException, UsuarioYaExisteException{

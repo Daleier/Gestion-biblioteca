@@ -22,6 +22,7 @@ public class Registro extends javax.swing.JDialog {
      */
     public Registro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        lista = new ListaUsuarios();
         initComponents();
     }
 
@@ -212,10 +213,10 @@ public class Registro extends javax.swing.JDialog {
             String pass = this.jPassField.getText();
             if(this.jComboTipo.getSelectedItem().equals("Usuario")){
                 Usuario usu = (new Usuario(nombre,dni,email,pass));
-                ListaUsuarios.addUser(usu);
+                lista.addUser(usu);
             }else if(this.jComboTipo.getSelectedItem().equals("Bibliotecario")){
                 Bibliotecario usu = (new Bibliotecario(nombre,dni,email,pass));
-                ListaUsuarios.addUser(usu);
+                lista.addUser(usu);
             }
             JOptionPane.showMessageDialog(this,"Usuario creado con exito", "usuario creado", JOptionPane.INFORMATION_MESSAGE);
         }catch(NombreIncorrectoException|DNIincorrectoException|PassIncorrectaException|EmailIncorrectoException|UsuarioYaExisteException ex){
@@ -303,4 +304,5 @@ public class Registro extends javax.swing.JDialog {
     private javax.swing.JTextField jTxtEmail;
     private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables
+    ListaUsuarios lista;
 }

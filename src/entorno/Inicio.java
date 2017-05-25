@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package entorno;
+import excepciones.DNIincorrectoException;
+import excepciones.NombreIncorrectoException;
 import javax.swing.JOptionPane;
+import usuarios.Bibliotecario;
 import usuarios.ListaUsuarios;
 import usuarios.Usuario;
 /**
@@ -16,7 +19,14 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     public Inicio() {
+        lista = new ListaUsuarios();
         registro = new Registro(this,true);
+        try{
+            lista.addUser((new Usuario ("usu","12345678A","abc@.","12345")));
+            //            lista.addUser((new Bibliotecario ("bib","12345678B","abd@.","12345")));
+        }catch(Exception ex){
+            ex.getMessage();
+        }
         initComponents();
     }
 
@@ -162,8 +172,8 @@ public class Inicio extends javax.swing.JFrame {
     private void jBttnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnIniciarActionPerformed
         if(this.jTxtNombre.getText().isEmpty() || this.jPasswordField.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Usuario o contraseña vacios", "Faltan el usuario o la contraseña-", JOptionPane.ERROR_MESSAGE);
-        }else if(ListaUsuarios.iniciarSesion(this.jTxtNombre.getText(), this.jPasswordField.getText())){
-            Usuario usuario = ListaUsuarios.obtenerUser(this.jTxtNombre.getText());
+        }else if(lista.iniciarSesion(this.jTxtNombre.getText(), this.jPasswordField.getText())){
+            Usuario usuario = lista.obtenerUser(this.jTxtNombre.getText());
             principal = new Principal(usuario);
             principal.setVisible(true);
             this.dispose();
@@ -178,8 +188,11 @@ public class Inicio extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws excepciones.NombreIncorrectoException
      */
     public static void main(String args[]) {
+
+
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -223,4 +236,5 @@ public class Inicio extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     Registro registro;
     Principal principal;
+    ListaUsuarios lista;
 }

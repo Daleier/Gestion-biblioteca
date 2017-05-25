@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author dam110
  */
-public class Libro implements Prestamos{
+public class Libro{
     private String titulo;
     private String autor;
     private String editorial;
@@ -52,16 +52,4 @@ public class Libro implements Prestamos{
     public void setEditorial(String editorial) {
         this.editorial = editorial;
     }
-
-    @Override
-    public void sacarLibro(ISBN isbn) {
-
-    }
-
-    @Override
-    public void deolverLibro(ISBN isbn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
 }

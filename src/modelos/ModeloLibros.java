@@ -26,8 +26,7 @@ public class ModeloLibros extends DefaultListModel {
    
    @Override
    public Object getElementAt(int index){
-       String cadena = lista.getLibro(index).getName();
-       return lista.getUsuario(index).getName();
+       return lista.getLibro(index).isbn.getIsbn();
    }
    
 }

@@ -26,7 +26,7 @@ public class Principal extends javax.swing.JFrame {
             System.out.println("Sesion iniciada usuario => "+usuario.toString());
             bibliotecario = false;
         }
-        libros = new Libros(this,true);
+        libros = new Libros(this,true,usuario);
         usuarios = new Usuarios(this,true);
         initComponents();
     }

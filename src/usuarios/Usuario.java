@@ -62,7 +62,11 @@ public class Usuario implements Comparable {
     
     @Override
     public String toString(){
-        return "Nombre: "+this.getName()+"\nDNI: "+this.dni.getDni()+"\nEmail: "+this.email.getEmail();
+        String tipo = "Usuario regular.";
+        if(this instanceof Bibliotecario){
+            tipo = "Bibliotecario.";
+        }
+        return tipo+"\nNombre: "+this.getName()+"\nDNI: "+this.dni.getDni()+"\nEmail: "+this.email.getEmail();
     }
     
     /**

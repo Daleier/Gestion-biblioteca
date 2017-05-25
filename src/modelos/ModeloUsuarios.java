@@ -26,7 +26,6 @@ public class ModeloUsuarios extends DefaultListModel{
    
    @Override
    public Object getElementAt(int index){
-       String cadena = lista.getUsuario(index).getName()+" - "+lista.getUsuario(index).dni.getDni();
        return lista.getUsuario(index).getName();
    }
 }

@@ -14,18 +14,21 @@ import excepciones.ISBNyaExisteException;
  */
 public class ListaLibros implements Serializable{
 
-    HashMap<ISBN, Libro> lista = new HashMap<ISBN, Libro>();
-    public ListaLibros(){
-        
-    }
+    private static HashMap<ISBN, Libro> lista = new HashMap<ISBN, Libro>();
+   
+    public ListaLibros(){}
     
-
     protected void addLibro(Libro libro) throws ISBNyaExisteException{
         if(!lista.containsKey(libro.isbn)){
             lista.put(libro.isbn, libro);
         }else{
             throw new ISBNyaExisteException();
         }
-        
     }
+    
+    public int tam(){
+       return lista.size();
+    }    
+    
 }
+

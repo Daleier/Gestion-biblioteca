@@ -122,7 +122,7 @@ public class Libros extends javax.swing.JDialog {
 
         jBttnDel.setText("Borrar libro");
         if(!bibliotecario){
-            jBttnAdd.setVisible(false);
+            jBttnDel.setVisible(false);
         }
         jBttnDel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

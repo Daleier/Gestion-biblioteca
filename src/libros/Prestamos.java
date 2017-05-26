@@ -5,14 +5,14 @@
  */
 package libros;
 
-import credenciales.ISBN;
+import usuarios.Usuario;
 
 /**
  *
  * @author dam110
  */
 public interface Prestamos {
-    
-    public void sacarLibro(ISBN isbn);
-    public void deolverLibro(ISBN isbn);
+   
+    public void sacarLibro(Usuario usuario);
+    public void devolverLibro();
 }

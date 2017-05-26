@@ -5,6 +5,7 @@
  */
 package entorno;
 
+import javax.swing.JOptionPane;
 import modelos.ModeloUsuarios;
 import usuarios.ListaUsuarios;
 import usuarios.Usuario;
@@ -71,13 +72,13 @@ public class Usuarios extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(16, 16, 16)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBttnEliminar)
                         .addGap(74, 74, 74))))
@@ -108,10 +109,17 @@ public class Usuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jListUsuariosMouseClicked
 
     private void jBttnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnEliminarActionPerformed
-        String cadena = this.jListUsuarios.getSelectedValue().toString();
-        Usuario usu = lista.obtenerUser(cadena);
-        lista.eliminarUsuario(usu);
-        modelo.cargar(lista);
+        try{
+            int opcion = JOptionPane.showConfirmDialog(this,"Seguro que quieres borrar este usuario?", "Eliminar usuario", JOptionPane.ERROR_MESSAGE);
+            if(opcion == JOptionPane.YES_OPTION){
+                String cadena = this.jListUsuarios.getSelectedValue().toString();
+                Usuario usu = lista.obtenerUser(cadena);
+                lista.eliminarUsuario(usu);
+                modelo.cargar(lista);
+            }
+        }catch(NullPointerException ex){
+            JOptionPane.showMessageDialog(this,"Debes seleccionar un usuario para poder borrar.", "Selecciona un usuario.", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBttnEliminarActionPerformed
 
     

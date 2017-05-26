@@ -69,6 +69,10 @@ public class Usuario implements Comparable {
         return tipo+"\nNombre: "+this.getName()+"\nDNI: "+this.dni.getDni()+"\nEmail: "+this.email.getEmail();
     }
     
+    public boolean puedeSacarLibro(){
+        return maxPrestamos<prestamosActuales;
+    }
+    
     /**
      * compara los dni de los objetos usuario
      * @param o

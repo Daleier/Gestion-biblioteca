@@ -5,7 +5,11 @@
  */
 package entorno;
 
+import excepciones.ISBNincorrecto;
+import java.awt.Point;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import libros.Libro;
 import libros.ListaLibros;
 import modelos.ModeloLibros;
 import usuarios.Bibliotecario;
@@ -34,9 +38,7 @@ public class Libros extends javax.swing.JDialog {
         initComponents();
     }
 
-    private Libros(JFrame jFrame, boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private Libros(JFrame jFrame, boolean b) {    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,13 +51,34 @@ public class Libros extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jListLibros = new javax.swing.JList();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel = new javax.swing.JPanel();
         jBttnAdd = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTxtFieldTitulo = new javax.swing.JTextField();
+        jTxtFieldAutor = new javax.swing.JTextField();
+        jTxtFieldEditorial = new javax.swing.JTextField();
+        jTxtFieldISBN = new javax.swing.JTextField();
+        jBttnDel = new javax.swing.JButton();
+        jLblAlquilado = new javax.swing.JLabel();
+        jBttnAlquilar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jListLibros.setModel(modelo);
+        jListLibros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListLibrosMouseClicked(evt);
+            }
+        });
+        jListLibros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jListLibrosKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListLibros);
 
         jBttnAdd.setText("Añadir libro");
@@ -68,22 +91,121 @@ public class Libros extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBttnAdd)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBttnAdd)
+        jLabel1.setText("Titulo");
+
+        jLabel2.setText("Autor");
+
+        jLabel3.setText("Editorial");
+
+        jLabel4.setText("ISBN");
+
+        if(bibliotecario==false){
+            this.jTxtFieldTitulo.setEditable(false);
+        }
+
+        if(bibliotecario==false){
+            this.jTxtFieldAutor.setEditable(false);
+        }
+        jTxtFieldAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtFieldAutorActionPerformed(evt);
+            }
+        });
+
+        if(bibliotecario==false){
+            this.jTxtFieldEditorial.setEditable(false);
+        }
+
+        if(bibliotecario==false){
+            this.jTxtFieldISBN.setEditable(false);
+        }
+
+        jBttnDel.setText("Borrar libro");
+        if(!bibliotecario){
+            jBttnAdd.setVisible(false);
+        }
+        jBttnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBttnDelMouseClicked(evt);
+            }
+        });
+        jBttnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttnDelActionPerformed(evt);
+            }
+        });
+
+        jLblAlquilado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTxtFieldAutor))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTxtFieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTxtFieldEditorial)
+                                    .addComponent(jTxtFieldISBN)))
+                            .addComponent(jLblAlquilado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jBttnAdd))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jBttnDel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTxtFieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTxtFieldAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTxtFieldEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTxtFieldISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLblAlquilado, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBttnAdd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBttnDel)
+                .addContainerGap())
+        );
+
+        jBttnAlquilar.setText("Alquilar");
+        jBttnAlquilar.setEnabled(false);
+        jBttnAlquilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBttnAlquilarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,27 +214,113 @@ public class Libros extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(73, 73, 73))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(jBttnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jBttnAlquilar)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(371, 338));
+        setSize(new java.awt.Dimension(503, 360));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jListLibrosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jListLibrosKeyPressed
+
+    }//GEN-LAST:event_jListLibrosKeyPressed
+
+    private void jListLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListLibrosMouseClicked
+        int index = this.jListLibros.getSelectedIndex();
+        Libro libro = lista.getLibro(index);
+        this.jTxtFieldTitulo.setText(libro.getTitulo());
+        this.jTxtFieldAutor.setText(libro.getAutor());
+        this.jTxtFieldISBN.setText(libro.isbn.getIsbn());
+        this.jTxtFieldEditorial.setText(libro.getEditorial());
+        this.jLblAlquilado.setText(libro.quienAlquila());
+        if(libro.getUsuario()==null){
+            this.jBttnAlquilar.setEnabled(true);
+        }else{
+            this.jBttnAlquilar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jListLibrosMouseClicked
+
+    private void jBttnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnDelActionPerformed
+        try{
+            int index =  this.jListLibros.getSelectedIndex();
+            Libro libro = lista.getLibro(index);
+            lista.eliminarLibro(libro);
+            modelo.cargar(lista);
+        }catch(ArrayIndexOutOfBoundsException ex){
+            JOptionPane.showMessageDialog(this,"Tienes que seleccionar un libro para poder eliminarlo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBttnDelActionPerformed
+
+    private void jBttnDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBttnDelMouseClicked
+
+    }//GEN-LAST:event_jBttnDelMouseClicked
+
+    private void jTxtFieldAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFieldAutorActionPerformed
+
+    }//GEN-LAST:event_jTxtFieldAutorActionPerformed
+
     private void jBttnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAddActionPerformed
-        // TODO add your handling code here:
+        boolean valido = true;
+        if(this.jTxtFieldTitulo.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Se necestia introducir un titulo.", "Titulo necesario", JOptionPane.ERROR_MESSAGE);
+            valido = false;
+        }
+        System.out.println("Titulo valido.");
+        if(this.jTxtFieldAutor.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Se necestia introducir un autor.", "Autor necesario", JOptionPane.ERROR_MESSAGE);
+            valido = false;
+        }
+        System.out.println("Autor valido.");
+        if(this.jTxtFieldISBN.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Se necestia introducir un ISBN.", "ISBN necesario", JOptionPane.ERROR_MESSAGE);
+            valido = false;
+        }
+        System.out.println("ISBN valido (comprobacion escrito).");
+        if(this.jTxtFieldEditorial.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Se necestia introducir una editorial.", "Editorial necesario", JOptionPane.ERROR_MESSAGE);
+            valido = false;
+        }
+        System.out.println("Editorial valida");
+        if(valido == true){
+            try{
+                Libro libro = new Libro(this.jTxtFieldTitulo.getText(),this.jTxtFieldAutor.getText(),this.jTxtFieldEditorial.getText(),this.jTxtFieldISBN.getText());
+                lista.addLibro(libro);
+                modelo.cargar(lista);
+                System.out.println("Libro añadido");
+            }catch(ISBNincorrecto ex){
+                JOptionPane.showMessageDialog(this,ex.getMessage(), "ISBN no valido", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jBttnAddActionPerformed
+
+    private void jBttnAlquilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBttnAlquilarActionPerformed
+        int index = this.jListLibros.getSelectedIndex();
+        Libro libro = lista.getLibro(index);
+        if(usuario.puedeSacarLibro()){
+            libro.sacarLibro(usuario);
+            JOptionPane.showMessageDialog(this,"Has sacado el libro.", "Libro sacado", JOptionPane.INFORMATION_MESSAGE);
+            this.jListLibrosMouseClicked(null);
+        }else{
+            JOptionPane.showMessageDialog(this,"Has alcanzado el maximo de libros que puedes retirar.", "No se puede retirar.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBttnAlquilarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,9 +366,20 @@ public class Libros extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBttnAdd;
+    private javax.swing.JButton jBttnAlquilar;
+    private javax.swing.JButton jBttnDel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLblAlquilado;
     private javax.swing.JList jListLibros;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTxtFieldAutor;
+    private javax.swing.JTextField jTxtFieldEditorial;
+    private javax.swing.JTextField jTxtFieldISBN;
+    private javax.swing.JTextField jTxtFieldTitulo;
     // End of variables declaration//GEN-END:variables
     ModeloLibros modelo;
     ListaLibros lista;

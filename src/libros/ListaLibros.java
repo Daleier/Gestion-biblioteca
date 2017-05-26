@@ -6,7 +6,6 @@
 package libros;
 import credenciales.ISBN;
 import java.io.Serializable;
-import excepciones.ISBNyaExisteException;
 import java.util.ArrayList;
 /**
  *
@@ -18,7 +17,7 @@ public class ListaLibros implements Serializable{
    
     public ListaLibros(){}
     
-    protected void addLibro(Libro libro) throws ISBNyaExisteException{
+    public void addLibro(Libro libro){
         lista.add(libro); //añadir comprobación en clase Libro
     }
     

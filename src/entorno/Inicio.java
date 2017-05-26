@@ -23,7 +23,7 @@ public class Inicio extends javax.swing.JFrame {
         registro = new Registro(this,true);
         try{
             lista.addUser((new Usuario ("usu","12345678A","abc@.","12345")));
-            //            lista.addUser((new Bibliotecario ("bib","12345678B","abd@.","12345")));
+            lista.addUser((new Bibliotecario ("bib","12345678B","abd@.","12345")));
         }catch(Exception ex){
             ex.getMessage();
         }

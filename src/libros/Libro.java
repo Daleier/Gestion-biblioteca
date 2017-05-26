@@ -6,27 +6,25 @@
 package libros;
 import credenciales.ISBN;
 import excepciones.ISBNincorrecto;
-import excepciones.ISBNyaExisteException;
 import java.util.Date;
+import usuarios.Usuario;
 /**
  *
  * @author dam110
  */
-public class Libro{
+public class Libro implements Prestamos{
     private String titulo;
     private String autor;
     private String editorial;
     public ISBN isbn;
-    public Date fechaPrestamo;
-    public Date fechaLimite;
     static ListaLibros lista = new ListaLibros();
+    public Usuario usuario=null;
     
-    public Libro(String titulo, String autor, String editorial, String isbn) throws ISBNincorrecto, ISBNyaExisteException{
+    public Libro(String titulo, String autor, String editorial, String isbn) throws ISBNincorrecto{
         this.titulo = titulo.trim();
         this.autor = autor.trim();
         this.editorial = editorial.trim();
         this.isbn = new ISBN(isbn);
-        lista.addLibro(this);
     }
 
     public String getTitulo() {
@@ -52,4 +50,61 @@ public class Libro{
     public void setEditorial(String editorial) {
         this.editorial = editorial;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * compara dos libros por isbn
+     * @param o
+     * @return 
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (this.getClass() != o.getClass()) {
+            return false;
+        }
+        final Libro other = (Libro) o;
+        return this.isbn.getIsbn().equals(other.isbn.getIsbn());
+    }
+
+    @Override
+    public String toString() {
+        String msj = "Alquilado por: "+usuario.getName();
+        if(usuario==null){
+            msj = "";
+        }
+        return this.getTitulo()+" - "+msj;
+    }
+    
+    public String quienAlquila(){
+        if(usuario==null){
+            return "Libre para alquilar.";
+        }else{
+            return "Alquilado por: "+usuario.getName();
+        }
+    }
+
+    @Override
+    public void sacarLibro(Usuario usu) {
+        if(this.usuario == null){
+            this.usuario = usu;
+        }
+    }
+    
+    @Override
+    public void devolverLibro(){
+        if(this.usuario != null){
+            this.usuario = null;
+        }
+    };
+
+
 }
+    
+    
+
